@@ -5,11 +5,15 @@
 爬取url：https://movie.douban.com/top250
 
 用到的python库：
-
+```python
 requests
 BeautifulSoup
 multiprocessing
 time
+```
+抓取的字段：
+
+电影名称，演员/导演，年份，评分，短评，电影海报
 
 目标：
 使用多进程，获取豆瓣电影top250的电影相关信息
