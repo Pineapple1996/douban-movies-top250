@@ -1,17 +1,27 @@
 import requests
 import re
 from bs4 import BeautifulSoup
-import json
 from multiprocessing import Pool
 import time
 
 def gethtml(url):
+    '''
+    获取网页源代码
+    :param url:
+    :return:
+    '''
     response = requests.get(url)
     # print (response.content)
     html = response.content
     html=html.decode('utf-8')
     return html
+
 def htmlparse(html):
+    '''
+    解析网页，使用正则表达式匹配需要的内容
+    :param html:
+    :return:
+    '''
     soup = BeautifulSoup(html,"lxml")
     # for item in soup.find_all('div',class_='item'):
     pattern = re.compile(r'<em class="">(\d+)</em>.*?src="(.*?)".*?<span class="title">(.*?)</span>.*?<p class="">(.*?)<br/>(.*?)</p>.*?<span class="rating_num" property="v:average">(.*?)</span>.*?<span class="inq">(.*?)</span>',re.S)
@@ -29,6 +39,11 @@ def htmlparse(html):
         }
 
 def save_file(results):
+    '''
+    将获取信息存到文件
+    :param results:
+    :return:
+    '''
     with open('top250movies','a',encoding='utf-8') as f:
         f.write(results+'\n\n')
 
